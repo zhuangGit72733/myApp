@@ -14,7 +14,7 @@ class ProductController extends Controller
     }
     //商品搜索->同类对比
     public function findProduct(Request $request){
-        $products=Product::where('name','like',$request->name)->get();
+        $products=Product::where('name','like',$request->name.'%')->get();
         return response()->json($products);
     }
     //商品推荐

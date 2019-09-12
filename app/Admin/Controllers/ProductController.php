@@ -31,7 +31,11 @@ class ProductController extends AdminController
         $grid->column('type.name', __('分类名称'));
         $grid->column('name', __('产品名称'));
         $grid->column('description', __('产品描述'));
-        $grid->column('pop', __('推荐'));
+        $states = [
+            'off'  => ['value' => 0, 'text' => '否', 'color' => 'danger'],
+            'on' => ['value' => 1, 'text' => '是', 'color' => 'success'],
+        ];
+        $grid->column('pop', __('推荐'))->switch($states);
         $grid->column('logo','logo图')->display(function (){
             if ($this->logo){
                 return '<div class="pop"><img src='.env('APP_URl').'/uploads/'.$this->logo.' style="width:100px;height:100px;"></div>';
@@ -75,9 +79,13 @@ class ProductController extends AdminController
     protected function form()
     {
         $form = new Form(new Product);
-
         $form->select('type_id', __('分类名称'))->options(Type::all()->pluck('name','id'));
         $form->text('name', __('产品名称'));
+        $states = [
+            'off'  => ['value' => 0, 'text' => '否', 'color' => 'danger'],
+            'on' => ['value' => 1, 'text' => '是', 'color' => 'success'],
+        ];
+        $form->switch('pop','是否推荐')->states($states);
         $form->textarea('description', __('产品描述'));
         $form->image('logo', __('logo图'));
         $form->text('price', __('价格'));

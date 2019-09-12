@@ -22,6 +22,6 @@ Route::post('apply/create','Api\ApplyController@create');
 Route::post('customer/create','Api\CustomerController@create');
 Route::get('customer/find','Api\CustomerController@findCustomer');
 //产品信息
-Route::post('product/list','Api\ProductController@index');
-Route::get('product/find','Api\ProductController@findProduct');
+Route::get('product/list','Api\ProductController@index');
+Route::post('product/find','Api\ProductController@findProduct');
 Route::get('product/pop','Api\ProductController@popProducts');

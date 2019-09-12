@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Customer;
+use App\Models\Product;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -27,10 +28,32 @@ class CustomerController extends AdminController
         $grid = new Grid(new Customer);
 
         $grid->column('id', __('Id'));
-        $grid->column('openid', __('客户标识'));
-        $grid->column('collection', __('收藏的产品'));
+        $grid->column('name', __('客户'));
+        $grid->column('collection', __('收藏的产品'))->display(function () {
+            $arr = [];
+            $product = Product::all()->toArray();
+            foreach ($this->collection as $val) {
+                foreach ($product as $key => $item) {
+                    if ($val == $item['id']) {
+                        array_push($arr, $product[$key]['name']);
+                    }
+                }
+            }
+             return $arr;
+        });
+        $grid->column('have', __('合作产品'))->display(function () {
+            $arr = [];
+            $product = Product::all()->toArray();
+            foreach ($this->have as $val) {
+                foreach ($product as $key => $item) {
+                    if ($val == $item['id']) {
+                        array_push($arr, $product[$key]['name']);
+                    }
+                }
+            }
+            return  $arr;
+        });
         $grid->column('apply', __('客户的申请'));
-        $grid->column('have', __('合作产品'));
         $grid->column('phone', __('联系电话'));
         $grid->column('address', __('地址'));
         $grid->column('company', __('公司'));
@@ -72,9 +95,9 @@ class CustomerController extends AdminController
         $form->number('sex', __('称呼'));
         $form->text('name', __('客户姓名'));
         $form->text('phone', __('联系电话'));
-        $form->text('collection', __('收藏的产品'));
+        $form->multipleSelect('collection', '收藏的产品')->options(Product::all()->pluck('name','id'));
+        $form->multipleSelect('have', '合作产品')->options(Product::all()->pluck('name','id'));
         $form->text('apply', __('Ta的申请'));
-        $form->text('have', __('合作产品'));
         $form->text('company', __('公司'));
         $form->text('address', __('地址'));
 

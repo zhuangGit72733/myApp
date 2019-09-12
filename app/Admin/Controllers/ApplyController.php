@@ -27,8 +27,8 @@ class ApplyController extends AdminController
         $grid = new Grid(new Apply);
 
         $grid->column('id', __('Id'));
-        $grid->column('customer_id', __('用户id'));
-        $grid->column('product_id', __('申请产品id'));
+        $grid->column('customer.name', __('客户'));
+        $grid->column('product.name', __('申请的产品'));
         $grid->column('status', __('当前状态'));
         $grid->column('updated_at', __('更新时间'));
 
@@ -64,8 +64,6 @@ class ApplyController extends AdminController
     {
         $form = new Form(new Apply);
 
-        $form->text('customer_id', __('客户id'));
-        $form->text('product_id', __('产品id'));
         $form->number('status', __('当前状态'));
 
         return $form;
