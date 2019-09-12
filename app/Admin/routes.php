@@ -14,6 +14,5 @@ Route::group([
     $router->resource('types', TypeController::class);
     $router->resource('products', ProductController::class);
     $router->resource('customers', CustomerController::class);
-
-
+    $router->resource('applies', ApplyController::class);
 });
