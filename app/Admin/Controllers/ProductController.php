@@ -31,6 +31,7 @@ class ProductController extends AdminController
         $grid->column('type.name', __('分类名称'));
         $grid->column('name', __('产品名称'));
         $grid->column('description', __('产品描述'));
+        $grid->column('pop', __('推荐'));
         $grid->column('logo','logo图')->display(function (){
             if ($this->logo){
                 return '<div class="pop"><img src='.env('APP_URl').'/uploads/'.$this->logo.' style="width:100px;height:100px;"></div>';
