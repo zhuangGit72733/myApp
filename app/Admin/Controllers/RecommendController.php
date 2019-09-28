@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Type;
+use App\Models\Recommend;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class TypeController extends AdminController
+class RecommendController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = '分类列表';
+    protected $title = '推荐列表';
 
     /**
      * Make a grid builder.
@@ -24,17 +24,10 @@ class TypeController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Type);
+        $grid = new Grid(new Recommend);
 
         $grid->column('id', __('Id'));
-        $grid->column('name', __('分类名称'));
-        $grid->column('icon','分类图标')->display(function (){
-            if ($this->icon){
-                return '<div class="pop"><img src='.env('APP_URl').'/uploads/'.$this->icon.' style="width:100px;height:100px;"></div>';
-            }else{
-                return ;
-            }
-        });
+        $grid->column('name', __('推荐名称'));
         $grid->column('updated_at', __('更新时间'));
 
         return $grid;
@@ -48,7 +41,7 @@ class TypeController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Type::findOrFail($id));
+        $show = new Show(Recommend::findOrFail($id));
 
         $show->field('id', __('Id'));
         $show->field('name', __('Name'));
@@ -65,9 +58,8 @@ class TypeController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Type);
+        $form = new Form(new Recommend);
         $form->text('name', __('分类名称'));
-        $form->image('icon', __('分类图标'));
 
         return $form;
     }

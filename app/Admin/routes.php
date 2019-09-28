@@ -15,4 +15,6 @@ Route::group([
     $router->resource('products', ProductController::class);
     $router->resource('customers', CustomerController::class);
     $router->resource('applies', ApplyController::class);
+    $router->resource('recommends', RecommendController::class);
+
 });

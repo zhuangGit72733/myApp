@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Product;
+use App\Models\Recommend;
 use App\Models\Type;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -29,6 +30,7 @@ class ProductController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('type.name', __('分类名称'));
+        $grid->column('recommend.name', __('推荐名称'));
         $grid->column('name', __('产品名称'));
         $grid->column('description', __('产品描述'));
         $states = [
@@ -86,6 +88,7 @@ class ProductController extends AdminController
             'on' => ['value' => 1, 'text' => '是', 'color' => 'success'],
         ];
         $form->switch('pop','是否推荐')->states($states);
+        $form->select('recommend_id','推荐分类')->options(Recommend::all()->pluck('name','id'));
         $form->textarea('description', __('产品描述'));
         $form->image('logo', __('logo图'));
         $form->text('price', __('价格'));

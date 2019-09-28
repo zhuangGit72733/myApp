@@ -16,12 +16,13 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-//申请
-Route::post('apply/create','Api\ApplyController@create');
-//客户信息
-Route::post('customer/create','Api\CustomerController@create');
-Route::get('customer/find','Api\CustomerController@findCustomer');
-//产品信息
-Route::get('product/list','Api\ProductController@index');
-Route::post('product/find','Api\ProductController@findProduct');
-Route::get('product/pop','Api\ProductController@popProducts');
+Route::group(
+    ['middleware' => 'Head'], function () {
+    Route::get('types','Api\ProductController@types');
+    Route::get('banners','Api\ProductController@banners');
+    Route::get('recommendedTypes','Api\ProductController@recommendedTypes');
+    Route::get('recommendProducts','Api\ProductController@recommendProducts');
+    Route::get('findProduct','Api\ProductController@findProduct');
+    Route::get('showProduct','Api\ProductController@showProduct');
+    Route::get('typeProducts','Api\ProductController@typeProducts');
+});
